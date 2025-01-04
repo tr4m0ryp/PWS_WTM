@@ -1,31 +1,33 @@
 import cv2
-import time
 from ultralytics import YOLO
 import RPi.GPIO as GPIO
-from RpiMotorLib import RpiMotorLib
-import os
+import time
 
 model = YOLO("yolov8n.pt")
 
 GPIO.setmode(GPIO.BCM)
-SWITCH_X = 17
-SWITCH_Y = 27
-GPIO.setup(SWITCH_X, GPIO.OUT)
-GPIO.setup(SWITCH_Y, GPIO.OUT)
-x_motor = RpiMotorLib.A4988Nema(5, 6, (21, 21, 21), "DRV8825")
-y_motor = RpiMotorLib.A4988Nema(13, 19, (21, 21, 21), "DRV8825")
+RELAY_X = 17  # Relay voor de motor op de x-as
+RELAY_Y = 27  # Relay voor de motor op de y-as
+GPIO.setup(RELAY_X, GPIO.OUT)
+GPIO.setup(RELAY_Y, GPIO.OUT)
 
+# Variabelen
 areas = {}
 selected_area = None
-tracking_object = False
-tracker = None
 object_detected = False
+tracker = None
 highlight_color = (0, 255, 255)
 
 categories = [
     "electronics", "glass", "metal", "organic_waste",
     "paper_and_cardboard", "plastic", "textile", "wood"
 ]
+
+def enable_motor(relay):
+    GPIO.output(relay, GPIO.HIGH)
+
+def disable_motor(relay):
+    GPIO.output(relay, GPIO.LOW)
 
 def select_area(event, x, y, flags, param):
     global selected_area
@@ -75,35 +77,6 @@ def configure_areas():
         if key == 27:
             break
 
-def move_to_area(target_coords):
-    x_steps = target_coords[0][0]
-    y_steps = target_coords[0][1]
-    enable_x_axis()
-    x_motor.motor_go(True, "Full", abs(x_steps), 0.005, False, 0.05)
-    disable_x_axis()
-
-    enable_y_axis()
-    y_motor.motor_go(True, "Full", abs(y_steps), 0.005, False, 0.05)
-    disable_y_axis()
-
-def enable_x_axis():
-    GPIO.output(SWITCH_X, GPIO.HIGH)
-
-def disable_x_axis():
-    GPIO.output(SWITCH_X, GPIO.LOW)
-
-def enable_y_axis():
-    GPIO.output(SWITCH_Y, GPIO.HIGH)
-
-def disable_y_axis():
-    GPIO.output(SWITCH_Y, GPIO.LOW)
-
-def initialize_camera():
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        return None
-    return cap
-
 def live_identification():
     global tracking_object, tracker, object_detected
     while True:
@@ -151,6 +124,7 @@ def live_identification():
                         cv2.imshow("Live Identificatie", frame)
                         cv2.waitKey(1000)
 
+                        print("Object gesorteerd! Het systeem is klaar voor het volgende object.")  # Melding in de console
                         object_detected = False
                         areas.pop("highlight", None)
                         tracker = None
@@ -160,14 +134,17 @@ def live_identification():
         if key == 27:
             break
 
-cap = initialize_camera()
-if cap is None:
+
+
+cap = cv2.VideoCapture(0)
+if not cap.isOpened():
     exit()
 
 cv2.namedWindow("Configuratie")
 cv2.setMouseCallback("Configuratie", select_area)
 configure_areas()
 cv2.destroyWindow("Configuratie")
+
 cv2.namedWindow("Live Identificatie")
 live_identification()
 
