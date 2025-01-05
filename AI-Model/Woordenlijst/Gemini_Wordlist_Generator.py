@@ -5,11 +5,11 @@ import time
 import re
 
 api_sleutels = [
-    "AIzaSyAr9ri1n7nbKals46vq-H3KWPyi72Ey3n8",
-    "AIzaSyAoR1zfRjrNGCSG9afFeAR2ncqvljqJVF0",
-    "AIzaSyCKEIweMN_O_i8C8OWW2eZAnPqwy4KNWHA",
-    "AIzaSyB6O7sFcq9Wq4KjV291-upDloCt0dUMrJk",
-    "AIzaSyAwUkvZaCe9i-H0MBq8aoUMEoMguxEh4FY"
+    "AIzaSyAr9ri1n7nbKals46vq-H3KWPyi72Ey3n8", #really? leaving your api-keys here?!; there aren't valid anymore ;)
+    "AIzaSyAoR1zfRjrNGCSG9afFeAR2ncqvljqJVF0",  #really? leaving your api-keys here?!; there aren't valid anymore ;)
+    "AIzaSyCKEIweMN_O_i8C8OWW2eZAnPqwy4KNWHA",#really? leaving your api-keys here?!; there aren't valid anymore ;)
+    "AIzaSyB6O7sFcq9Wq4KjV291-upDloCt0dUMrJk",#really? leaving your api-keys here?!; there aren't valid anymore ;)
+    "AIzaSyAwUkvZaCe9i-H0MBq8aoUMEoMguxEh4FY"#really? leaving your api-keys here?!; there aren't valid anymore ;)
 ]
 
 def configureer_api(api_sleutel):
