@@ -3,7 +3,7 @@ from ultralytics import YOLO
 import RPi.GPIO as GPIO
 import time
 
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8n.pt") #Het is handiger om best.pt te gebruiken. Ervaar nog wat problemen met importeren
 
 GPIO.setmode(GPIO.BCM)
 RELAY_X = 17  # Relay voor de motor op de x-as
