@@ -3,7 +3,7 @@
 # Profielwerkstuk - Afval Scheiden
 In deze ReadMe file heb ik de verwijzing van de netwerkschijf verwerkt + klein toelichten waar alles zich bevindt.
 
-[https://m2-ict.nl:5051/d/s/11ho2762KO85rNUlqkeEDOWdgbEDGOYB/pPgKul10XAiCBJKYXc571dBndAHSJ0CM-NbEgJeo8-Qs]
+https://m2-ict.nl:5051/d/s/11ho2762KO85rNUlqkeEDOWdgbEDGOYB/pPgKul10XAiCBJKYXc571dBndAHSJ0CM-NbEgJeo8-Qs
 
 ## Inhoud van de Map
 De projectmap is opgedeeld in verschillende hoofdmappen:
